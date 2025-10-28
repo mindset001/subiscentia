@@ -2,12 +2,15 @@ import CollectionDetails from '@/components/collections/[id]/details/CollectionD
 import { notFound } from 'next/navigation';
 
 type DetailsPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default function DetailsPage({ params }: DetailsPageProps) {
-  if (!params?.id) return notFound();
-  return <CollectionDetails collectionId={params.id} />;
+export default async function DetailsPage({ params }: DetailsPageProps) {
+  const { id } = await params; // ✅ unwrap the async params
+
+  if (!id) return notFound();
+
+  return <CollectionDetails collectionId={id} />;
 }
