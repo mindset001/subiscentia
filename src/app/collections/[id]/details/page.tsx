@@ -1,13 +1,9 @@
 import CollectionDetails from '@/components/collections/[id]/details/CollectionDetails';
 import { notFound } from 'next/navigation';
 
-interface Props {
-  params: { id: string };
-}
+// Remove incorrect import. Define local PageProps type below.
 
-export default async function DetailsPage({ params }: Props) {
-  // Unwrap params if it's a Promise (Next.js 14+)
-  const resolvedParams = await params;
-  if (!resolvedParams.id) return notFound();
-  return <CollectionDetails collectionId={resolvedParams.id} />;
+export default function DetailsPage({ params }: { params: { id: string } }) {
+  if (!params.id) return notFound();
+  return <CollectionDetails collectionId={params.id} />;
 }
