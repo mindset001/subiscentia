@@ -10,7 +10,7 @@ const MostBelovedFragrancesHeader = () => (
       />
       <div className="absolute inset-0 bg-gradient-to-b from-purple-100/60 to-transparent"></div>
     </div>
-    <div className="relative z-10 text-left">
+    <div className="relative z-10 text-left px-4">
       <h2 className="text-3xl md:text-4xl font-light tracking-[0.3em] text-purple-900 mb-4 uppercase">
         Most Beloved Fragrances
       </h2>

@@ -1,17 +1,24 @@
 'use client';
 
 import Image from 'next/image';
+import Flower from '../../../public/images/flower.png';
+import Flower2 from '../../../public/images/flower2.png';
+import Flower3 from '../../../public/images/flower3.png';
+import Flower4 from '../../../public/images/flower4.png';
+import Flower5 from '../../../public/images/flower5.png';
+import Flower6 from '../../../public/images/flower6.png';
+import Flower7 from '../../../public/images/flower7.png';
 
 const florals = [
-  { image: '/images/floral1.jpg' },
-  { image: '/images/floral2.jpg' },
-  { image: '/images/floral3.jpg' },
-  { image: '/images/floral4.jpg' },
-  { image: '/images/floral5.jpg' },
-  { image: '/images/floral6.jpg' },
-  { image: '/images/floral7.jpg' },
-  { image: '/images/floral8.jpg' },
-  { image: '/images/floral9.jpg' },
+  { image: Flower},
+  { image: Flower2 },
+  { image: Flower3 },
+  { image: Flower4 },
+  { image: Flower5 },
+  { image: Flower6 },
+  { image: Flower7 },
+  { image: Flower3 },
+  { image: Flower4 },
 ];
 
 const LuminousFlorals = () => {

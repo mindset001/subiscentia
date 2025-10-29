@@ -16,7 +16,7 @@ export default function Collections() {
       {/* Essence Collection Section */}
       <EssenceCollection />
       {/* ...existing collections content... */}
-         <EssenceCollection />
+      <EssenceCollection />
       {/* ...existing collections content... */}
       <JoinScentJourney/>
       <Footer/>

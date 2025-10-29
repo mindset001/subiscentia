@@ -12,7 +12,7 @@ const CollectionsHero = () => (
       <div className="absolute inset-0 bg-gradient-to-b from-purple-100/60 to-transparent"></div>
     </div>
     <div className="relative z-10 w-full text-center px-4">
-      <h1 className="text-[7vw] md:text-[6vw] lg:text-[5vw] font-light text-purple-900 mb-6 tracking-wide leading-tight" style={{ fontFamily: 'inherit' }}>
+      <h1 className="text-[7vw] md:text-[6vw] lg:text-[10em] font-light text-[#46315C] mb-6 tracking-wide leading-tight" style={{ fontFamily: 'inherit' }}>
         Collections
       </h1>
       <div className="mt-8">
