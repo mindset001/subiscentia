@@ -1,5 +1,8 @@
 import CollectionDetails from '@/components/collections/[id]/details/CollectionDetails';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
+import { JoinScentJourney } from '@/components/landing';
 
 type DetailsPageProps = {
   params: Promise<{
@@ -12,5 +15,12 @@ export default async function DetailsPage({ params }: DetailsPageProps) {
 
   if (!id) return notFound();
 
-  return <CollectionDetails collectionId={id} />;
+  return (
+    <>
+      <Navbar />
+      <CollectionDetails collectionId={id} />
+      <JoinScentJourney/>
+      <Footer />
+    </>
+  );
 }

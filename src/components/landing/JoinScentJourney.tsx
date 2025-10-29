@@ -14,7 +14,7 @@ const JoinScentJourney = () => {
         <p className="text-lg text-gray-700 mb-8">
           Be The First To Discover New Fragrances, Exclusive Collections, And The Stories Behind Each Scent.
         </p>
-        <form className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <form className="flex flex-col sm:flex-row sm:px-4 items-center justify-center gap-4">
           <input
             type="email"
             placeholder="Your Email Address"

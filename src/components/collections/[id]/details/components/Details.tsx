@@ -9,9 +9,9 @@ interface CollectionDetailsProps {
 }
 
 const images = [
-  '/images/bottle.png',
-  '/images/flower.png',
-  '/images/hero.png',
+  '/images/perf2.png',
+  '/images/perf3.png',
+  '/images/perf4.png',
 ];
 
 const sizes = [
@@ -40,7 +40,7 @@ const Details = ({ collectionId }: CollectionDetailsProps) => {
       {/* Top images */}
       <div className="flex gap-4 justify-center mb-8">
         {images.map((src, idx) => (
-          <div key={idx} className="w-20 h-20 rounded overflow-hidden relative border border-gray-200">
+          <div key={idx} className="w-20 h-20 overflow-hidden relative border border-gray-200">
             <Image src={src} alt="Product" fill className="object-cover" />
           </div>
         ))}
@@ -48,9 +48,9 @@ const Details = ({ collectionId }: CollectionDetailsProps) => {
 
 
       {/* Title & Description */}
-    <div className='w-full flex flex-col items-left md:px-10'>
+    <div className='w-full flex flex-col items-left px-4 md:px-10'>
           <h1 className="text-4xl md:text-6xl font-light tracking-[.8em] text-[#46315C]  mb-4 uppercase">Violet Reverie</h1>
-     <div className='flex justify-between '>
+     <div className='flex flex-col md:flex-row justify-between '>
          <p className="w-[55%] text-[#46315C]  mb-4 text-base md:text-lg tracking-[.4rem]">
         A delicate symphony of violet petals, warm cashmere, and golden amber that captures the essence of ethereal beauty and timeless elegance.
       </p>
@@ -112,16 +112,16 @@ const Details = ({ collectionId }: CollectionDetailsProps) => {
           <div className="border border-gray-200 rounded-lg p-8 bg-white">
             <h2 className="text-2xl font-light tracking-[0.2em] text-purple-900 mb-6 uppercase">Fragrance Profile</h2>
             <div className="space-y-2 text-base">
-              <div><span className="font-semibold text-purple-900">Personality:</span> For The Dreamer Who Finds Beauty In Quiet Moments</div>
-              <div><span className="font-semibold text-purple-900">Occasion:</span> Perfect For Intimate Evenings And Reflective Mornings</div>
-              <div><span className="font-semibold text-purple-900">Season:</span> Spring & Summer</div>
-              <div><span className="font-semibold text-purple-900">Longevity:</span> 6-8 Hours</div>
+              <div><span className="flex flex-col font-semibold text-purple-900">Personality:</span> <span>For The Dreamer Who Finds Beauty In Quiet Moments</span></div>
+              <div><span className="flex flex-col font-semibold text-purple-900">Occasion:</span> <span>Perfect For Intimate Evenings And Reflective Mornings</span></div>
+              <div><span className="flex flex-col font-semibold text-purple-900">Season:</span> <span>Spring & Summer</span></div>
+              <div><span className="flex flex-col font-semibold text-purple-900">Longevity:</span> <span>6-8 Hours</span></div>
             </div>
           </div>
           {/* The Story */}
           <div className="border border-gray-200 rounded-lg p-8 bg-white">
             <h2 className="text-2xl font-light tracking-[0.2em] text-purple-900 mb-6 uppercase">The Story</h2>
-            <p className="text-base text-gray-700">
+            <p className="text-[16px] text-gray-700">
               Violet Reverie Is An Olfactory Poem Written In The Language Of Dreams. This Exquisite Fragrance Opens With The Delicate Whisper Of Violet Petals, Kissed By Morning Dew And Touched By The First Light Of Dawn. As The Scent Unfolds, Warm Cashmere Woods Embrace The Senses, Creating A Cocoon Of Comfort And Sophistication. The Base Notes Of Golden Amber Add Depth And Luminosity, Leaving A Trail Of Mysterious Allure That Speaks To The Soul.
             </p>
           </div>
