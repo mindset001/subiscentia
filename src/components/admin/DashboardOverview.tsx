@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 export default function DashboardOverview() {
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-[#4C406E] mb-2">Dashboard Overview</h1>
-      <p className="text-[#4C406E] mb-6">Welcome back. Here's what's happening today.</p>
+      <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Dashboard Overview</h1>
+      <p className="text-[#4C406E] mb-6 font-circular">Welcome back. Here's what's happening today.</p>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <Card className="bg-[#4C406E] rounded-sm">
           <CardHeader className="text-white">Total Revenue</CardHeader>
@@ -43,7 +43,7 @@ export default function DashboardOverview() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-[#4C406E]">Revenue trend</h3>
-                  <p className="text-xs text-gray-500">Last 7 days performance</p>
+                  <p className="text-xs text-gray-500 font-circular">Last 7 days performance</p>
                 </div>
                 <div className="text-sm text-gray-400">400 - 0</div>
               </div>

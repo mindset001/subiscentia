@@ -51,7 +51,7 @@ export default function CustomersManagement() {
     <div className="p-8">
        <div className="flex justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#4C406E] mb-2">Order Management</h1>
+          <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Customer Management</h1>
           <p className="text-[#4C406E] mb-6">Track and manage customer orders</p>
         </div>
         <div className="flex gap-4">

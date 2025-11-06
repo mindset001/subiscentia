@@ -23,9 +23,9 @@ const florals = [
 
 const LuminousFlorals = () => {
   return (
-    <section className="py-12 px-4 sm:px-8 lg:px-16">
+    <section className="py-12 px-4 sm:px-8 lg:px-2 bg-[#F4E5FF]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-2">
           {florals.map((item, idx) => (
             <div key={idx} className="relative h-64 rounded-lg overflow-hidden shadow">
               <Image
@@ -35,7 +35,7 @@ const LuminousFlorals = () => {
                 className="object-cover"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-4">
+              <div className="font-circular absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-4">
                 <span className="inline-block px-2 py-1 text-xs font-medium bg-white/80 text-gray-800 rounded mb-2">
                   luminous florals
                 </span>

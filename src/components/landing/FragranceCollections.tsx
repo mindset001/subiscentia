@@ -31,17 +31,17 @@ const FragranceCollections = () => {
           <div className=" flex flex-col items-center">
             {/* Main Heading */}
             <div className="">
-              <h2 className="text-sm text-gray-700 font-medium tracking-wider text-center">
+              <h2 className="font-circular text-sm text-gray-700 font-medium tracking-wider text-center">
                 Ethereal Beauty, Sustainable Impact
               </h2>
-              <h3 className="text-lg text-gray-800 font-light leading-relaxed">
+              <h3 className="font-circular text-lg text-gray-800 font-light leading-relaxed">
                 Where Conscious Luxury Meets Timeless Elegance
               </h3>
             </div>
 
             {/* Large Title */}
             <div className="mt-14 mb-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 tracking-wide leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 tracking-wide leading-tight font-sackers">
                 FRAGRANCE   COLLECTIONS
               </h1>
         
@@ -49,7 +49,7 @@ const FragranceCollections = () => {
 
             {/* Subtitle */}
            <div className='w-full flex justify-between mt-4'>
-             <div className="w-1/4">
+             <div className="w-1/4 font-sackers">
               <h4 className="text-xl font-light text-gray-800 tracking-wide">
                 STORIES
               </h4>
@@ -60,7 +60,7 @@ const FragranceCollections = () => {
 
             {/* Description */}
             <div className="w-2/4">
-              <p className="text-[20px] text-gray-700 leading-relaxed font-light flex flex-col text-right">
+              <p className="text-[16px] text-gray-700 leading-relaxed font-light flex flex-col text-right font-sackers">
                 EACH COLLECTION WHISPERS ITS OWN TALE, CRAFTED FOR 
                 THOSE WHO UNDERSTAND THAT FRAGRANCE IS THE INVISIBLE 
                 THREAD OF MEMORY AND EMOTION.

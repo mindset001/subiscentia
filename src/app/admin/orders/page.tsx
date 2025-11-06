@@ -51,8 +51,8 @@ export default function OrderManagement() {
     <div className="">
       <div className="flex justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#4C406E] mb-2">Order Management</h1>
-          <p className="text-[#4C406E] mb-6">Track and manage customer orders</p>
+          <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Order Management</h1>
+          <p className="text-[#4C406E] mb-6 font-circular">Track and manage customer orders</p>
         </div>
         <div className="flex gap-4">
           <span className="text-xs h-[40px] flex items-center justify-center text-[#4C406E] bg-[#F4E5FF] px-2 py-1 ">1 Pending</span>

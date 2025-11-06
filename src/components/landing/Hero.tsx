@@ -20,7 +20,7 @@ const Hero = () => {
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
-        <h1 className="text-6xl sm:text-[15em] md:text-9xl lg:text-[20rem] font-light text-[#46315C] tracking-wider leading-none">
+        <h1 className="text-6xl sm:text-[15em] md:text-9xl lg:text-[20rem] font-normal text-[#46315C] tracking-wider leading-none font-sephir">
           Subi
         </h1>
      

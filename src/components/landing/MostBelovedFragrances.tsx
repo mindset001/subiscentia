@@ -119,10 +119,10 @@ const MostBelovedFragrances = () => {
                     {item.name}
                   </h3>
                  <div className='flex'>
-                   <p className="text-[10px] text-[#000] mb-2">
+                   <p className="text-[10px] text-[#000] mb-2 font-circular">
                     {item.description}
                   </p>
-                  <p className="flex flex-col justify-end text-xs text-gray-400">
+                  <p className="flex flex-col justify-end text-xs text-gray-400 font-circular">
                    <span className="text-xl font-semibold text-[#000]">{item.price}</span>
                   </p>
                  </div>

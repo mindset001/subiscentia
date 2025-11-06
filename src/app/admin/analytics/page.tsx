@@ -4,8 +4,8 @@ import { TrendingUp, FileText, Users, BarChart } from "lucide-react";
 export default function AnalyticsReports() {
     return (
         <div className="">
-            <h1 className="text-3xl font-bold text-[#4C406E] mb-2">Analytics & Reports</h1>
-            <p className="text-[#4C406E] mb-6">Insights and performance metrics</p>
+            <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Analytics & Reports</h1>
+            <p className="text-[#4C406E] mb-6 font-circular">Insights and performance metrics</p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-purple-100 rounded-none shadow-none">
                     <div className="p-2 flex flex-col gap-4">

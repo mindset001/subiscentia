@@ -49,7 +49,7 @@ const Details = ({ collectionId }: CollectionDetailsProps) => {
 
       {/* Title & Description */}
     <div className='w-full flex flex-col items-left px-4 md:px-10'>
-          <h1 className="text-4xl md:text-6xl font-light tracking-[.8em] text-[#46315C]  mb-4 uppercase">Violet Reverie</h1>
+          <h1 className="text-4xl md:text-6xl font-light tracking-[.8em] text-[#46315C] mb-4 uppercase font-sackers">Violet Reverie</h1>
      <div className='flex flex-col md:flex-row justify-between '>
          <p className="w-[55%] text-[#46315C]  mb-4 text-base md:text-lg tracking-[.4rem]">
         A delicate symphony of violet petals, warm cashmere, and golden amber that captures the essence of ethereal beauty and timeless elegance.

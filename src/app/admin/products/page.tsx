@@ -48,8 +48,8 @@ export default function ProductManagement() {
     <div className="">
       <div className="flex justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#4C406E] mb-2">Product Management</h1>
-          <p className="text-[#4C406E] mb-6">Manage your fragrance catalog and inventory</p>
+          <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Product Management</h1>
+          <p className="text-[#4C406E] mb-6 font-circular">Manage your fragrance catalog and inventory</p>
         </div>
         <button
           className="bg-[#4C406E] h-[50px] text-white px-6 py-2 font-medium flex items-center gap-2"

@@ -32,7 +32,7 @@ const Footer = () => {
 
             {/* Tagline */}
             <div className="max-w-md">
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-sm leading-relaxed font-circular">
                 Crafting Moments Of Quiet Luxury Through The Art Of Fragrance. 
                 Each Scent Tells A Story Of Timeless Elegance And Conscious Craftsmanship
               </p>
@@ -71,7 +71,7 @@ const Footer = () => {
                 <div key={link.name}>
                   <Link
                     href={link.href}
-                    className="block text-gray-700 hover:text-gray-900 text-sm font-medium tracking-wide transition-colors duration-200"
+                    className="font-sackers block text-gray-700 hover:text-gray-900 text-sm font-medium tracking-wide transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -85,7 +85,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-purple-300/50">
           {/* Large Branding Text */}
           <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-gray-800 tracking-[0.2em] leading-tight">
+            <h2 className="font-sackers text-4xl md:text-6xl lg:text-7xl font-light text-gray-800 tracking-[0.2em] leading-tight">
               SUBI SCENTIA
             </h2>
           </div>
