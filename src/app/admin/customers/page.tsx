@@ -96,13 +96,13 @@ export default function CustomersManagement() {
     }
   };
   return (
-    <div className="p-8">
-      <div className="flex justify-between">
+    <div className="">
+      <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Customer Management</h1>
-          <p className="text-[#4C406E] mb-6">Track and manage customer information</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Customer Management</h1>
+          <p className="text-sm md:text-base text-[#4C406E]">Track and manage customer information</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2 md:gap-4 flex-wrap">
           <span className="text-xs h-[40px] flex items-center justify-center text-[#4C406E] bg-[#F4E5FF] px-2 py-1">
             {vipCount} VIP
           </span>
@@ -112,13 +112,13 @@ export default function CustomersManagement() {
         </div>
       </div>
       
-      <div className="flex bg-white p-8 mb-6">
+      <div className="flex bg-white p-4 md:p-6 lg:p-8 mb-6">
         <div className="w-full">
           <div className="relative">
             <input
               type="text"
               placeholder="Search customers..."
-              className="w-[90%] border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              className="w-full border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-purple-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -127,22 +127,24 @@ export default function CustomersManagement() {
         </div>
       </div>
       
-      <Card className="p-6 shadow-none rounded-none border-none">
+      <Card className="p-4 md:p-6 shadow-none rounded-none border-none">
         <div className="mb-4">
-          <div className="text-lg font-semibold text-[#4C406E]">Customer Directory</div>
-          <div className="text-xs text-gray-500">{filteredCustomers.length} customers found</div>
+          <div className="text-base md:text-lg font-semibold text-[#4C406E]">Customer Directory</div>
+          <div className="text-xs md:text-sm text-gray-500">{filteredCustomers.length} customers found</div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
+        <div className="overflow-x-auto -mx-4 md:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden">
+          <table className="min-w-full text-xs md:text-sm">
             <thead>
               <tr className="bg-purple-100 text-[#4C406E]">
-                <th className="py-2 px-4 text-left font-medium">Customer</th>
-                <th className="py-2 px-4 text-left font-medium">Loyalty Status</th>
-                <th className="py-2 px-4 text-left font-medium">Orders</th>
-                <th className="py-2 px-4 text-left font-medium">Total Spent</th>
-                <th className="py-2 px-4 text-left font-medium">Last Order</th>
-                <th className="py-2 px-4 text-left font-medium">Joined</th>
-                <th className="py-2 px-4 text-left font-medium">Actions</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Customer</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Loyalty Status</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Orders</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Total Spent</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Last Order</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Joined</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -163,38 +165,38 @@ export default function CustomersManagement() {
                   const loyalty = getLoyaltyStatus(customer.totalSpent);
                   return (
                     <tr key={customer._id} className="border-b last:border-b-0 hover:bg-gray-50">
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 md:px-4">
                         <div className="font-medium text-[#4C406E]">
                           {customer.firstName} {customer.lastName}
                         </div>
                         <div className="text-xs text-gray-500">{customer.email}</div>
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 md:px-4">
                         <span className={`px-2 py-1 rounded text-xs font-medium ${loyalty.color}`}>
                           {loyalty.label}
                         </span>
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 md:px-4">
                         <span className="bg-purple-100 text-[#4C406E] px-2 py-1 rounded text-xs font-medium">
                           {customer.totalOrders}
                         </span>
                       </td>
-                      <td className="py-3 px-4 font-semibold">${customer.totalSpent.toFixed(2)}</td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 md:px-4 font-semibold text-xs md:text-sm">${customer.totalSpent.toFixed(2)}</td>
+                      <td className="py-3 px-2 md:px-4 text-xs md:text-sm">
                         {customer.lastOrderDate 
                           ? new Date(customer.lastOrderDate).toLocaleDateString()
                           : 'No orders yet'
                         }
                       </td>
-                      <td className="py-3 px-4 text-xs text-gray-500">
+                      <td className="py-3 px-2 md:px-4 text-xs text-gray-500">
                         {new Date(customer.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 md:px-4">
                         <button 
-                          className="hover:text-purple-700 flex items-center gap-1"
+                          className="hover:text-purple-700 flex items-center gap-1 text-xs md:text-sm"
                           onClick={() => handleViewCustomer(customer)}
                         >
-                          <Eye size={18} /> View
+                          <Eye size={16} className="md:w-[18px] md:h-[18px]" /> <span className="hidden sm:inline">View</span>
                         </button>
                       </td>
                     </tr>
@@ -203,6 +205,8 @@ export default function CustomersManagement() {
               )}
             </tbody>
           </table>
+            </div>
+          </div>
         </div>
       </Card>
 

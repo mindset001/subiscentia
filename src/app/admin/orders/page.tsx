@@ -118,12 +118,12 @@ export default function OrderManagement() {
   };
   return (
     <div className="">
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Order Management</h1>
-          <p className="text-[#4C406E] mb-6 font-circular">Track and manage customer orders</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Order Management</h1>
+          <p className="text-sm md:text-base text-[#4C406E] font-circular">Track and manage customer orders</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2 md:gap-4 flex-wrap">
           <span className="text-xs h-[40px] flex items-center justify-center text-[#4C406E] bg-[#F4E5FF] px-2 py-1">
             {pendingCount} Pending
           </span>
@@ -133,13 +133,13 @@ export default function OrderManagement() {
         </div>
       </div>
       
-      <div className="flex bg-white p-8 mb-6 gap-4">
+      <div className="flex flex-col md:flex-row bg-white p-4 md:p-6 lg:p-8 mb-6 gap-4">
         <div className="flex-1">
           <div className="relative">
             <input
               type="text"
               placeholder="Search orders..."
-              className="w-full border border-gray-300 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              className="w-full border border-gray-300 py-2 pl-10 pr-4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-200"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -149,7 +149,7 @@ export default function OrderManagement() {
         <Select
           placeholder="Filter by status"
           allowClear
-          className="w-48"
+          className="w-full md:w-48"
           value={statusFilter || undefined}
           onChange={(value) => setStatusFilter(value || "")}
           options={[
@@ -163,22 +163,24 @@ export default function OrderManagement() {
         />
       </div>
       
-      <Card className="p-6 shadow-none rounded-none border-none">
+      <Card className="p-4 md:p-6 shadow-none rounded-none border-none">
         <div className="mb-4">
-          <div className="text-lg font-semibold text-[#4C406E]">Recent orders</div>
-          <div className="text-xs text-gray-500">{filteredOrders.length} orders found</div>
+          <div className="text-base md:text-lg font-semibold text-[#4C406E]">Recent orders</div>
+          <div className="text-xs md:text-sm text-gray-500">{filteredOrders.length} orders found</div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
+        <div className="overflow-x-auto -mx-4 md:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden">
+          <table className="min-w-full text-xs md:text-sm">
             <thead>
               <tr className="bg-[#F4E5FF] text-[#4C406E]">
-                <th className="py-2 px-4 text-left font-medium">Order ID</th>
-                <th className="py-2 px-4 text-left font-medium">Customer</th>
-                <th className="py-2 px-4 text-left font-medium">Total</th>
-                <th className="py-2 px-4 text-left font-medium">Status</th>
-                <th className="py-2 px-4 text-left font-medium">Payment</th>
-                <th className="py-2 px-4 text-left font-medium">Date</th>
-                <th className="py-2 px-4 text-left font-medium">Actions</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Order ID</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Customer</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Total</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Status</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Payment</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Date</th>
+                <th className="py-2 px-2 md:px-4 text-left font-medium whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -197,31 +199,31 @@ export default function OrderManagement() {
               ) : (
                 filteredOrders.map((order) => (
                   <tr key={order._id} className="border-b last:border-b-0 hover:bg-gray-50">
-                    <td className="py-3 px-4 font-medium text-[#4C406E]">{order.orderNumber}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 md:px-4 font-medium text-[#4C406E]">{order.orderNumber}</td>
+                    <td className="py-3 px-2 md:px-4">
                       <div className="font-medium text-[#4C406E]">
                         {order.user.firstName} {order.user.lastName}
                       </div>
                       <div className="text-xs text-gray-500">{order.user.email}</div>
                     </td>
-                    <td className="py-3 px-4 font-semibold">${order.totalAmount.toFixed(2)}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 md:px-4 font-semibold text-xs md:text-sm">${order.totalAmount.toFixed(2)}</td>
+                    <td className="py-3 px-2 md:px-4">
                       <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${getStatusColor(order.status)}`}>
                         {order.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 md:px-4">
                       <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${getPaymentStatusColor(order.paymentStatus)}`}>
                         {order.paymentStatus}
                       </span>
                     </td>
-                    <td className="py-3 px-4">{new Date(order.createdAt).toLocaleDateString()}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-2 md:px-4 text-xs md:text-sm">{new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td className="py-3 px-2 md:px-4">
                       <button 
-                        className="hover:text-purple-700 flex items-center gap-1"
+                        className="hover:text-purple-700 flex items-center gap-1 text-xs md:text-sm"
                         onClick={() => handleViewOrder(order)}
                       >
-                        <Eye size={18} /> View
+                        <Eye size={16} className="md:w-[18px] md:h-[18px]" /> <span className="hidden sm:inline">View</span>
                       </button>
                     </td>
                   </tr>
@@ -229,6 +231,8 @@ export default function OrderManagement() {
               )}
             </tbody>
           </table>
+            </div>
+          </div>
         </div>
       </Card>
 
@@ -325,30 +329,30 @@ export default function OrderManagement() {
               </div>
             )}
             
-            <div className="w-full flex gap-4 mt-6">
+            <div className="w-full flex flex-wrap gap-2 md:gap-4 mt-6">
               <button 
-                className="bg-[#4C406E] text-white font-semibold px-6 py-2 border-none hover:bg-[#3a2f54] disabled:opacity-50"
+                className="bg-[#4C406E] text-white font-semibold px-3 md:px-6 py-2 text-xs md:text-sm border-none hover:bg-[#3a2f54] disabled:opacity-50"
                 onClick={() => handleUpdateStatus(selectedOrder._id, 'pending')}
                 disabled={selectedOrder.status === 'pending'}
               >
                 Mark as Pending
               </button>
               <button 
-                className="bg-[#C27448] text-white font-semibold px-6 py-2 border-none hover:bg-[#a15f38] disabled:opacity-50"
+                className="bg-[#C27448] text-white font-semibold px-3 md:px-6 py-2 text-xs md:text-sm border-none hover:bg-[#a15f38] disabled:opacity-50"
                 onClick={() => handleUpdateStatus(selectedOrder._id, 'processing')}
                 disabled={selectedOrder.status === 'processing'}
               >
                 Mark as Processing
               </button>
               <button 
-                className="bg-[#7C3AED] text-white font-semibold px-6 py-2 border-none hover:bg-[#6d28d9] disabled:opacity-50"
+                className="bg-[#7C3AED] text-white font-semibold px-3 md:px-6 py-2 text-xs md:text-sm border-none hover:bg-[#6d28d9] disabled:opacity-50"
                 onClick={() => handleUpdateStatus(selectedOrder._id, 'shipped')}
                 disabled={selectedOrder.status === 'shipped'}
               >
                 Mark as Shipped
               </button>
               <button 
-                className="bg-[#00A213] text-white font-semibold px-6 py-2 border-none hover:bg-[#008a0f] disabled:opacity-50"
+                className="bg-[#00A213] text-white font-semibold px-3 md:px-6 py-2 text-xs md:text-sm border-none hover:bg-[#008a0f] disabled:opacity-50"
                 onClick={() => handleUpdateStatus(selectedOrder._id, 'delivered')}
                 disabled={selectedOrder.status === 'delivered'}
               >

@@ -102,17 +102,17 @@ export default function AnalyticsReports() {
 
     return (
         <div className="">
-            <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Analytics & Reports</h1>
-            <p className="text-[#4C406E] mb-6 font-circular">Insights and performance metrics</p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Analytics & Reports</h1>
+            <p className="text-sm md:text-base text-[#4C406E] mb-6 font-circular">Insights and performance metrics</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
                 <Card className="bg-purple-100 rounded-none shadow-none">
-                    <div className="p-2 flex flex-col gap-4">
+                    <div className="p-3 md:p-4 flex flex-col gap-3 md:gap-4">
                         <div className="flex justify-between">
-                            <div className="text-xs text-[#4C406E]">Total Revenue</div>
-                            <DollarSign className="text-[#4C406E]" />
+                            <div className="text-xs md:text-sm text-[#4C406E]">Total Revenue</div>
+                            <DollarSign className="text-[#4C406E] w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <div className="text-2xl font-bold text-[#4C406E]">
+                            <div className="text-xl md:text-2xl font-bold text-[#4C406E]">
                                 {formatCurrency(data?.overview.totalRevenue || 0)}
                             </div>
                         </div>
@@ -177,11 +177,11 @@ export default function AnalyticsReports() {
                     </div>
                 </Card>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <Card className="p-6 rounded-none shadow-none border-none">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-8">
+                <Card className="p-4 md:p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
-                        <div className="text-lg font-semibold text-[#4C406E]">Sales trend</div>
-                        <div className="text-xs text-gray-500">Revenue over the last 30 days</div>
+                        <div className="text-base md:text-lg font-semibold text-[#4C406E]">Sales trend</div>
+                        <div className="text-xs md:text-sm text-gray-500">Revenue over the last 30 days</div>
                     </div>
                     <div className="w-full h-56">
                         {data?.salesTrend && data.salesTrend.length > 0 ? (
@@ -217,10 +217,10 @@ export default function AnalyticsReports() {
                         )}
                     </div>
                 </Card>
-                <Card className="p-6 rounded-none shadow-none border-none">
+                <Card className="p-4 md:p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
-                        <div className="text-lg font-semibold text-[#4C406E]">Sales by Collection</div>
-                        <div className="text-xs text-gray-500">Performance by product line</div>
+                        <div className="text-base md:text-lg font-semibold text-[#4C406E]">Sales by Collection</div>
+                        <div className="text-xs md:text-sm text-gray-500">Performance by product line</div>
                     </div>
                     <div className="w-full h-56">
                         {data?.salesByCollection && data.salesByCollection.length > 0 ? (
@@ -274,10 +274,10 @@ export default function AnalyticsReports() {
                         )}
                     </div>
                 </Card>
-                <Card className="p-6 rounded-none shadow-none border-none">
+                <Card className="p-4 md:p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
-                        <div className="text-lg font-semibold text-[#4C406E]">Recent orders</div>
-                        <div className="text-xs text-gray-500">Latest customer purchases</div>
+                        <div className="text-base md:text-lg font-semibold text-[#4C406E]">Recent orders</div>
+                        <div className="text-xs md:text-sm text-gray-500">Latest customer purchases</div>
                     </div>
                     {data?.recentOrders && data.recentOrders.length > 0 ? (
                         <ul className="space-y-4">
@@ -308,10 +308,10 @@ export default function AnalyticsReports() {
                         </div>
                     )}
                 </Card>
-                <Card className="p-6 rounded-none shadow-none border-none">
+                <Card className="p-4 md:p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
-                        <div className="text-lg font-semibold text-[#4C406E]">Top Products</div>
-                        <div className="text-xs text-gray-500">Best selling items</div>
+                        <div className="text-base md:text-lg font-semibold text-[#4C406E]">Top Products</div>
+                        <div className="text-xs md:text-sm text-gray-500">Best selling items</div>
                     </div>
                     {data?.topProducts && data.topProducts.length > 0 ? (
                         <ul className="space-y-4">

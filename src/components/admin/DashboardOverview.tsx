@@ -99,53 +99,53 @@ export default function DashboardOverview() {
   }
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Dashboard Overview</h1>
-      <p className="text-[#4C406E] mb-6 font-circular">Welcome back. Here's what's happening today.</p>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div className="space-y-6 md:space-y-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Dashboard Overview</h1>
+      <p className="text-sm md:text-base text-[#4C406E] mb-4 md:mb-6 font-circular">Welcome back. Here's what's happening today.</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
         <Card className="bg-[#4C406E] rounded-sm">
-          <CardHeader className="text-white">Total Revenue</CardHeader>
+          <CardHeader className="text-white text-sm md:text-base">Total Revenue</CardHeader>
           <CardContent className="text-white">
-            <div className="text-2xl font-bold">{formatCurrency(data?.overview.totalRevenue || 0)}</div>
+            <div className="text-xl md:text-2xl font-bold">{formatCurrency(data?.overview.totalRevenue || 0)}</div>
             <div className="text-xs">From paid orders</div>
           </CardContent>
         </Card>
         <Card className="bg-[#4C406E] rounded-sm">
-          <CardHeader className="text-white">Orders</CardHeader>
+          <CardHeader className="text-white text-sm md:text-base">Orders</CardHeader>
           <CardContent className="text-white">
-            <div className="text-2xl font-bold">{data?.overview.totalOrders || 0}</div>
+            <div className="text-xl md:text-2xl font-bold">{data?.overview.totalOrders || 0}</div>
             <div className="text-xs">All time orders</div>
           </CardContent>
         </Card>
         <Card className="bg-[#4C406E] rounded-sm">
-          <CardHeader className="text-white">Avg Order Value</CardHeader>
+          <CardHeader className="text-white text-sm md:text-base">Avg Order Value</CardHeader>
           <CardContent className="text-white">
-            <div className="text-2xl font-bold">{formatCurrency(avgOrderValue)}</div>
+            <div className="text-xl md:text-2xl font-bold">{formatCurrency(avgOrderValue)}</div>
             <div className="text-xs">Per transaction</div>
           </CardContent>
         </Card>
         <Card className="bg-[#4C406E] rounded-sm">
-          <CardHeader className="text-white">Stock Alerts</CardHeader>
+          <CardHeader className="text-white text-sm md:text-base">Stock Alerts</CardHeader>
           <CardContent className="text-white">
-            <div className="text-2xl font-bold">{lowStockCount}</div>
+            <div className="text-xl md:text-2xl font-bold">{lowStockCount}</div>
             <div className="text-xs">items below 10 units</div>
           </CardContent>
         </Card>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Left column: Revenue trend (top) and Recent orders (bottom) */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           <Card className="rounded-sm shadow-none">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-[#4C406E]">Revenue trend</h3>
+                  <h3 className="text-base md:text-lg font-semibold text-[#4C406E]">Revenue trend</h3>
                   <p className="text-xs text-gray-500 font-circular">Last 7 days performance</p>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="w-full h-56">
+              <div className="w-full h-40 md:h-56">
                 {data?.salesTrend && data.salesTrend.length > 0 ? (
                   <svg viewBox="0 0 600 200" className="w-full h-full">
                     <rect x="0" y="0" width="100%" height="100%" fill="#fff" />
@@ -184,7 +184,7 @@ export default function DashboardOverview() {
           <Card className="rounded-sm shadow-none">
             <CardHeader>
               <div>
-                <h3 className="text-lg font-semibold text-[#4C406E]">Recent orders</h3>
+                <h3 className="text-base md:text-lg font-semibold text-[#4C406E]">Recent orders</h3>
                 <p className="text-xs text-gray-500">Latest customer purchases</p>
               </div>
             </CardHeader>
@@ -214,11 +214,11 @@ export default function DashboardOverview() {
         </div>
 
         {/* Right column: Top Products (top) and Activity feed (bottom) */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           <Card className="rounded-sm shadow-none">
             <CardHeader>
               <div>
-                <h3 className="text-lg font-semibold text-[#4C406E]">Top Products</h3>
+                <h3 className="text-base md:text-lg font-semibold text-[#4C406E]">Top Products</h3>
                 <p className="text-xs text-gray-500">Best performers this week</p>
               </div>
             </CardHeader>
@@ -249,7 +249,7 @@ export default function DashboardOverview() {
           <Card className="rounded-sm shadow-none">
             <CardHeader>
               <div>
-                <h3 className="text-lg font-semibold text-[#4C406E]">Activity feed</h3>
+                <h3 className="text-base md:text-lg font-semibold text-[#4C406E]">Activity feed</h3>
                 <p className="text-xs text-gray-500">Recent system activities</p>
               </div>
             </CardHeader>
