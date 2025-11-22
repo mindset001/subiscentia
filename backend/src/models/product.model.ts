@@ -7,6 +7,12 @@ export interface IProduct extends Document {
   category: string;
   images: string[];
   stockQuantity: number;
+  sizes?: Array<{
+    label: string;
+    price: number;
+  }>;
+  isPublished: boolean;
+  publishedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -37,6 +43,17 @@ const productSchema = new Schema({
     type: Number,
     required: true,
     min: 0
+  },
+  sizes: [{
+    label: { type: String },
+    price: { type: Number }
+  }],
+  isPublished: {
+    type: Boolean,
+    default: false
+  },
+  publishedAt: {
+    type: Date
   }
 }, {
   timestamps: true

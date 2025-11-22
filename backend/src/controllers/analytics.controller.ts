@@ -98,17 +98,20 @@ export const getDashboardStats = async (req: Request, res: Response) => {
     ]);
 
     res.json({
-      overview: {
-        totalRevenue: totalRevenue[0]?.total || 0,
-        totalOrders,
-        totalCustomers
-      },
-      recentOrders,
-      salesTrend,
-      salesByCollection,
-      topProducts
+      success: true,
+      data: {
+        overview: {
+          totalRevenue: totalRevenue[0]?.total || 0,
+          totalOrders,
+          totalCustomers
+        },
+        recentOrders,
+        salesTrend,
+        salesByCollection,
+        topProducts
+      }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching dashboard stats', error });
+    res.status(500).json({ success: false, message: 'Error fetching dashboard stats', error });
   }
 };

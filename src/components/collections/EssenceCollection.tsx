@@ -28,7 +28,7 @@ const EssenceCollection = () => (
       />
       <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-4">
         <h2 className="text-3xl md:text-5xl font-light text-white mb-2 tracking-wide">Essence Collection</h2>
-        <p className="text-base md:text-lg text-white/80 font-light">
+        <p className="text-base md:text-lg text-white/80 font-light font-circular">
           Pure, Undiluted Expressions Of Nature's Most Precious Aromatics<br />
           Minimalist Elegance Meets Raw Botanical Power
         </p>

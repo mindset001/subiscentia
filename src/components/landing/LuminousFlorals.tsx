@@ -42,7 +42,7 @@ const LuminousFlorals = () => {
                 <h3 className="text-2xl font-light text-white mb-2 tracking-wide">
                   light finds you
                 </h3>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-white/80 font-circular">
                   where dawn meets skin in whispered promises<br />of bergamot and white tea
                 </p>
               </div>

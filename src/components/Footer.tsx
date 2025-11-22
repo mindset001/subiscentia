@@ -92,7 +92,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-center">
-            <p className="text-gray-600 text-xs">
+            <p className="text-gray-600 text-xs font-circular">
               © 2025 Subi Scentia. All Rights Reserved.
             </p>
           </div>

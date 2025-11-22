@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { JoinScentJourney } from "@/components/landing";
 import { sackersGothic, circularStd, sephir } from "@/lib/fonts";
+import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +27,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${sackersGothic.variable} ${circularStd.variable} ${sephir.variable} antialiased bg-white font-circular`}>
-        {/* <Navbar /> */}
-        {children}
-        {/* Join Scent Journey Section */}
-        {/* <JoinScentJourney /> */}
-        {/* <Footer /> */}
+        <AuthProvider>
+          <CartProvider>
+            {/* <Navbar /> */}
+            {children}
+            {/* Join Scent Journey Section */}
+            {/* <JoinScentJourney /> */}
+            {/* <Footer /> */}
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

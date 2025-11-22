@@ -20,9 +20,9 @@ export const createOrder = async (req: Request, res: Response) => {
       $push: { orders: order._id }
     });
 
-    res.status(201).json(order);
+    res.status(201).json({ success: true, data: order, message: 'Order created successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error creating order', error });
+    res.status(500).json({ success: false, message: 'Error creating order', error });
   }
 };
 
@@ -34,9 +34,9 @@ export const getUserOrders = async (req: Request, res: Response) => {
       .populate('products.product')
       .sort({ createdAt: -1 });
 
-    res.json(orders);
+    res.json({ success: true, data: orders });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching orders', error });
+    res.status(500).json({ success: false, message: 'Error fetching orders', error });
   }
 };
 
@@ -46,7 +46,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
     const query = status ? { status } : {};
 
     const orders = await Order.find(query)
-      .populate('user', 'email firstName lastName')
+      .populate('user', 'email name firstName lastName')
       .populate('products.product')
       .sort({ createdAt: -1 })
       .limit(Number(limit))
@@ -55,12 +55,33 @@ export const getAllOrders = async (req: Request, res: Response) => {
     const total = await Order.countDocuments(query);
 
     res.json({
-      orders,
-      total,
-      pages: Math.ceil(total / Number(limit))
+      success: true,
+      data: orders,
+      pagination: {
+        total,
+        pages: Math.ceil(total / Number(limit)),
+        currentPage: Number(page),
+        perPage: Number(limit)
+      }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching orders', error });
+    res.status(500).json({ success: false, message: 'Error fetching orders', error });
+  }
+};
+
+export const getOrderById = async (req: Request, res: Response) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate('user', 'email name firstName lastName')
+      .populate('products.product');
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    res.json({ success: true, data: order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error fetching order', error });
   }
 };
 
@@ -76,11 +97,25 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     ).populate('products.product');
 
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
-    res.json(order);
+    res.json({ success: true, data: order, message: 'Order status updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error updating order status', error });
+    res.status(500).json({ success: false, message: 'Error updating order status', error });
+  }
+};
+
+export const deleteOrder = async (req: Request, res: Response) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    res.json({ success: true, message: 'Order deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error deleting order', error });
   }
 };

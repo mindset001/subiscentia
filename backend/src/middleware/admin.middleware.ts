@@ -16,3 +16,6 @@ export const adminMiddleware = async (req: Request, res: Response, next: NextFun
     res.status(500).json({ message: 'Error checking admin status', error });
   }
 };
+
+// Alias for consistency
+export const requireAdmin = adminMiddleware;

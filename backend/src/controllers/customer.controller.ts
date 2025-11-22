@@ -60,12 +60,17 @@ export const getAllCustomers = async (req: Request, res: Response) => {
     const total = await User.countDocuments(searchQuery);
 
     res.json({
-      customers,
-      total,
-      pages: Math.ceil(total / Number(limit))
+      success: true,
+      data: customers,
+      pagination: {
+        total,
+        pages: Math.ceil(total / Number(limit)),
+        currentPage: Number(page),
+        perPage: Number(limit)
+      }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching customers', error });
+    res.status(500).json({ success: false, message: 'Error fetching customers', error });
   }
 };
 
@@ -121,12 +126,12 @@ export const getCustomerDetails = async (req: Request, res: Response) => {
     ]);
 
     if (!customerDetails[0]) {
-      return res.status(404).json({ message: 'Customer not found' });
+      return res.status(404).json({ success: false, message: 'Customer not found' });
     }
 
-    res.json(customerDetails[0]);
+    res.json({ success: true, data: customerDetails[0] });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching customer details', error });
+    res.status(500).json({ success: false, message: 'Error fetching customer details', error });
   }
 };
 
@@ -142,12 +147,12 @@ export const updateCustomerNewsletter = async (req: Request, res: Response) => {
     ).select('-password');
 
     if (!customer) {
-      return res.status(404).json({ message: 'Customer not found' });
+      return res.status(404).json({ success: false, message: 'Customer not found' });
     }
 
-    res.json(customer);
+    res.json({ success: true, data: customer, message: 'Newsletter status updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error updating customer newsletter status', error });
+    res.status(500).json({ success: false, message: 'Error updating customer newsletter status', error });
   }
 };
 
@@ -165,12 +170,17 @@ export const getCustomerOrderHistory = async (req: Request, res: Response) => {
     const total = await Order.countDocuments({ user: id });
 
     res.json({
-      orders,
-      total,
-      pages: Math.ceil(total / Number(limit))
+      success: true,
+      data: orders,
+      pagination: {
+        total,
+        pages: Math.ceil(total / Number(limit)),
+        currentPage: Number(page),
+        perPage: Number(limit)
+      }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching customer order history', error });
+    res.status(500).json({ success: false, message: 'Error fetching customer order history', error });
   }
 };
 
@@ -202,12 +212,15 @@ export const getCustomerMetrics = async (req: Request, res: Response) => {
       }
     ]);
 
-    res.json(metrics[0] || {
-      totalOrders: 0,
-      totalSpent: 0,
-      averageOrderValue: 0
+    res.json({
+      success: true,
+      data: metrics[0] || {
+        totalOrders: 0,
+        totalSpent: 0,
+        averageOrderValue: 0
+      }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching customer metrics', error });
+    res.status(500).json({ success: false, message: 'Error fetching customer metrics', error });
   }
 };

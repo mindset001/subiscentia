@@ -4,18 +4,19 @@ import User from '../models/user.model';
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, name, firstName, lastName } = req.body;
     
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already registered' });
+      return res.status(400).json({ success: false, message: 'Email already registered' });
     }
 
     // Create new user
     const user = new User({
       email,
       password,
+      name,
       firstName,
       lastName
     });
@@ -24,17 +25,22 @@ export const register = async (req: Request, res: Response) => {
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, role: user.role },
       process.env.JWT_SECRET || 'default_secret',
       { expiresIn: '24h' }
     );
 
+    const displayName = user.name || 
+      (user.firstName || user.lastName ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : user.email.split('@')[0]);
+
     res.status(201).json({
+      success: true,
       message: 'User registered successfully',
       token,
       user: {
         id: user._id,
         email: user.email,
+        name: displayName,
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role
@@ -52,28 +58,33 @@ export const login = async (req: Request, res: Response) => {
     // Find user
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     // Generate JWT
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, role: user.role },
       process.env.JWT_SECRET || 'default_secret',
       { expiresIn: '24h' }
     );
 
+    const displayName = user.name || 
+      (user.firstName || user.lastName ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : user.email.split('@')[0]);
+
     res.json({
+      success: true,
       message: 'Logged in successfully',
       token,
       user: {
         id: user._id,
         email: user.email,
+        name: displayName,
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role

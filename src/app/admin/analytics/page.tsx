@@ -1,7 +1,105 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
-import { TrendingUp, FileText, Users, BarChart } from "lucide-react";
+import { TrendingUp, FileText, Users, BarChart, DollarSign } from "lucide-react";
+import { api } from '@/lib/api';
+import { message } from 'antd';
+
+interface DashboardData {
+  overview: {
+    totalRevenue: number;
+    totalOrders: number;
+    totalCustomers: number;
+  };
+  recentOrders: Array<{
+    _id: string;
+    orderNumber: string;
+    totalAmount: number;
+    createdAt: string;
+    user: {
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
+  }>;
+  salesTrend: Array<{
+    _id: string;
+    revenue: number;
+    orders: number;
+  }>;
+  salesByCollection: Array<{
+    _id: string;
+    totalSales: number;
+    totalOrders: number;
+  }>;
+  topProducts: Array<{
+    _id: string;
+    totalQuantity: number;
+    totalRevenue: number;
+    productDetails: {
+      name: string;
+      price: number;
+    };
+  }>;
+}
 
 export default function AnalyticsReports() {
+    const [data, setData] = useState<DashboardData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchDashboardData();
+    }, []);
+
+    const fetchDashboardData = async () => {
+        try {
+            setLoading(true);
+            const response = await api.getDashboardStats();
+            if (response.success) {
+                setData(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching dashboard data:', error);
+            message.error('Failed to load analytics data');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(amount);
+    };
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now.getTime() - date.getTime();
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        
+        if (diffHours < 24) {
+            return `${diffHours}hr ago`;
+        } else {
+            const diffDays = Math.floor(diffHours / 24);
+            return `${diffDays}d ago`;
+        }
+    };
+
+    const avgOrderValue = data && data.overview.totalOrders > 0 
+        ? data.overview.totalRevenue / data.overview.totalOrders 
+        : 0;
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-96">
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="">
             <h1 className="text-3xl font-bold text-[#4C406E] mb-2 font-sackers">Analytics & Reports</h1>
@@ -11,73 +109,71 @@ export default function AnalyticsReports() {
                     <div className="p-2 flex flex-col gap-4">
                         <div className="flex justify-between">
                             <div className="text-xs text-[#4C406E]">Total Revenue</div>
-                            <TrendingUp className="text-[#4C406E]" />
+                            <DollarSign className="text-[#4C406E]" />
                         </div>
                         <div>
-
-                            <div className="text-2xl font-bold text-[#4C406E]">$847,468.97</div>
-
+                            <div className="text-2xl font-bold text-[#4C406E]">
+                                {formatCurrency(data?.overview.totalRevenue || 0)}
+                            </div>
                         </div>
                         <div className="flex gap-2">
                             <TrendingUp className="text-[#4C406E] w-4" />
-                            <div className="text-xs text-gray-500">+12% from last month</div>
+                            <div className="text-xs text-gray-500">From paid orders</div>
                         </div>
-
                     </div>
                 </Card>
 
-                  <Card className="bg-purple-100 rounded-none shadow-none">
+                <Card className="bg-purple-100 rounded-none shadow-none">
                     <div className="p-2 flex flex-col gap-4">
                         <div className="flex justify-between">
                             <div className="text-xs text-[#4C406E]">Total Orders</div>
                             <FileText className="text-[#4C406E]" />
                         </div>
                         <div>
-
-                            <div className="text-2xl font-bold text-[#4C406E]">$47</div>
-
+                            <div className="text-2xl font-bold text-[#4C406E]">
+                                {data?.overview.totalOrders || 0}
+                            </div>
                         </div>
                         <div className="flex gap-2">
                             <TrendingUp className="text-[#4C406E] w-4" />
-                            <div className="text-xs text-gray-500">+3 from last month</div>
+                            <div className="text-xs text-gray-500">All time orders</div>
                         </div>
-
                     </div>
                 </Card>
-                  <Card className="bg-purple-100 rounded-none shadow-none">
+
+                <Card className="bg-purple-100 rounded-none shadow-none">
                     <div className="p-2 flex flex-col gap-4">
                         <div className="flex justify-between">
-                            <div className="text-xs text-[#4C406E]">New Customers</div>
+                            <div className="text-xs text-[#4C406E]">Total Customers</div>
                             <Users className="text-[#4C406E]" />
                         </div>
                         <div>
-
-                            <div className="text-2xl font-bold text-[#4C406E]">466</div>
-
+                            <div className="text-2xl font-bold text-[#4C406E]">
+                                {data?.overview.totalCustomers || 0}
+                            </div>
                         </div>
                         <div className="flex gap-2">
                             <TrendingUp className="text-[#4C406E] w-4" />
-                            <div className="text-xs text-gray-500">+12% from last month</div>
+                            <div className="text-xs text-gray-500">Registered users</div>
                         </div>
-
                     </div>
                 </Card>
-                  <Card className="bg-purple-100 rounded-none shadow-none">
+
+                <Card className="bg-purple-100 rounded-none shadow-none">
                     <div className="p-2 flex flex-col gap-4">
                         <div className="flex justify-between">
                             <div className="text-xs text-[#4C406E]">Avg Order Value</div>
                             <TrendingUp className="text-[#4C406E]" />
                         </div>
                         <div>
-
-                            <div className="text-2xl font-bold text-[#4C406E]">$47</div>
-
+                            <div className="text-2xl font-bold text-[#4C406E]">
+                                {formatCurrency(avgOrderValue)}
+                            </div>
                         </div>
                         <div className="flex gap-2">
-                            <TrendingUp className="text-[#4C406E] w-4" />
-                            <div className="text-xs text-gray-500">+12% from last month</div>
+                            <BarChart className="text-[#4C406E] w-4" />
+                            <div className="text-xs text-gray-500">Per transaction</div>
                         </div>
-
                     </div>
                 </Card>
             </div>
@@ -85,24 +181,40 @@ export default function AnalyticsReports() {
                 <Card className="p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
                         <div className="text-lg font-semibold text-[#4C406E]">Sales trend</div>
-                        <div className="text-xs text-gray-500">Revenue and order volume over time</div>
+                        <div className="text-xs text-gray-500">Revenue over the last 30 days</div>
                     </div>
                     <div className="w-full h-56">
-                        {/* SVG line chart mockup */}
-                        <svg viewBox="0 0 400 180" className="w-full h-full">
-                            <rect x="0" y="0" width="400" height="180" fill="#fff" />
-                            {[0, 1, 2, 3, 4].map(i => (
-                                <line key={i} x1={40} x2={360} y1={30 + i * 30} y2={30 + i * 30} stroke="#e5e5f7" />
-                            ))}
-                            <path d="M40 130 C90 90 140 150 190 120 C240 90 290 110 340 80" fill="none" stroke="#6B46C1" strokeWidth="3" />
-                            {[{ x: 40, y: 130 }, { x: 90, y: 90 }, { x: 140, y: 150 }, { x: 190, y: 120 }, { x: 240, y: 90 }, { x: 290, y: 110 }, { x: 340, y: 80 }].map((d, i) => (
-                                <circle key={i} cx={d.x} cy={d.y} r="4" fill="#fff" stroke="#6B46C1" />
-                            ))}
-                            {/* X axis labels */}
-                            {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'].map((m, i) => (
-                                <text key={m} x={40 + i * 50} y={170} fontSize="12" fill="#4C406E">{m}</text>
-                            ))}
-                        </svg>
+                        {data?.salesTrend && data.salesTrend.length > 0 ? (
+                            <svg viewBox="0 0 400 180" className="w-full h-full">
+                                <rect x="0" y="0" width="400" height="180" fill="#fff" />
+                                {[0, 1, 2, 3, 4].map(i => (
+                                    <line key={i} x1={40} x2={360} y1={30 + i * 30} y2={30 + i * 30} stroke="#e5e5f7" />
+                                ))}
+                                {(() => {
+                                    const maxRevenue = Math.max(...data.salesTrend.map(d => d.revenue), 1);
+                                    const points = data.salesTrend.slice(0, 7).map((d, i) => ({
+                                        x: 40 + (i * 320 / 6),
+                                        y: 150 - (d.revenue / maxRevenue * 100)
+                                    }));
+                                    const pathD = points.map((p, i) => 
+                                        i === 0 ? `M${p.x} ${p.y}` : `L${p.x} ${p.y}`
+                                    ).join(' ');
+                                    
+                                    return (
+                                        <>
+                                            <path d={pathD} fill="none" stroke="#6B46C1" strokeWidth="3" />
+                                            {points.map((p, i) => (
+                                                <circle key={i} cx={p.x} cy={p.y} r="4" fill="#fff" stroke="#6B46C1" />
+                                            ))}
+                                        </>
+                                    );
+                                })()}
+                            </svg>
+                        ) : (
+                            <div className="flex items-center justify-center h-full text-gray-400">
+                                No sales data available
+                            </div>
+                        )}
                     </div>
                 </Card>
                 <Card className="p-6 rounded-none shadow-none border-none">
@@ -110,31 +222,56 @@ export default function AnalyticsReports() {
                         <div className="text-lg font-semibold text-[#4C406E]">Sales by Collection</div>
                         <div className="text-xs text-gray-500">Performance by product line</div>
                     </div>
-                    <div className="w-full h-72 flex items-end gap-2">
-                        {/* SVG bar chart mockup - improved to match provided mockup */}
-                        <svg viewBox="0 0 500 300" className="w-full h-full">
-                            <rect x="0" y="0" width="500" height="300" fill="#fff" />
-                            {/* grid lines */}
-                            {[0, 1, 2, 3, 4].map(i => (
-                                <line key={i} x1={50} x2={470} y1={50 + i * 50} y2={50 + i * 50} stroke="#d9d9d9" strokeDasharray="4 2" />
-                            ))}
-                            {/* y-axis */}
-                            <line x1={50} x2={50} y1={50} y2={250} stroke="#888" />
-                            {/* x-axis */}
-                            <line x1={50} x2={470} y1={250} y2={250} stroke="#888" />
-                            {/* bars */}
-                            {[120, 90, 180, 80, 80].map((h, i) => (
-                                <rect key={i} x={90 + i * 75} y={250 - h} width={50} height={h} fill="#4C406E" rx={4} />
-                            ))}
-                            {/* y-axis labels */}
-                            {[400, 300, 200, 100, 0].map((v, i) => (
-                                <text key={v} x={35} y={55 + i * 50} fontSize="13" fill="#4C406E" textAnchor="end">{v}</text>
-                            ))}
-                            {/* x-axis labels, rotated */}
-                            {['Noir Collection', 'Noir Collection', 'Noir Collection', 'Noir Collection', 'Noir Collection'].map((c, i) => (
-                                <text key={c + i} x={115 + i * 75} y={270} fontSize="13" fill="#4C406E" textAnchor="end" transform={`rotate(-30,${115 + i * 75},270)`}>{c}</text>
-                            ))}
-                        </svg>
+                    <div className="w-full h-56">
+                        {data?.salesByCollection && data.salesByCollection.length > 0 ? (
+                            <svg viewBox="0 0 500 250" className="w-full h-full">
+                                <rect x="0" y="0" width="500" height="250" fill="#fff" />
+                                {[0, 1, 2, 3, 4].map(i => (
+                                    <line key={i} x1={50} x2={470} y1={40 + i * 40} y2={40 + i * 40} stroke="#d9d9d9" strokeDasharray="4 2" />
+                                ))}
+                                <line x1={50} x2={50} y1={40} y2={200} stroke="#888" />
+                                <line x1={50} x2={470} y1={200} y2={200} stroke="#888" />
+                                {(() => {
+                                    const maxSales = Math.max(...data.salesByCollection.map(c => c.totalSales), 1);
+                                    const collections = data.salesByCollection.slice(0, 5);
+                                    const barWidth = Math.min(50, 320 / collections.length);
+                                    
+                                    return (
+                                        <>
+                                            {collections.map((c, i) => {
+                                                const height = (c.totalSales / maxSales) * 140;
+                                                const x = 90 + (i * 75);
+                                                return (
+                                                    <g key={i}>
+                                                        <rect 
+                                                            x={x} 
+                                                            y={200 - height} 
+                                                            width={barWidth} 
+                                                            height={height} 
+                                                            fill="#4C406E" 
+                                                            rx={4} 
+                                                        />
+                                                        <text 
+                                                            x={x + barWidth / 2} 
+                                                            y={220} 
+                                                            fontSize="11" 
+                                                            fill="#4C406E" 
+                                                            textAnchor="middle"
+                                                        >
+                                                            {c._id || 'Unknown'}
+                                                        </text>
+                                                    </g>
+                                                );
+                                            })}
+                                        </>
+                                    );
+                                })()}
+                            </svg>
+                        ) : (
+                            <div className="flex items-center justify-center h-full text-gray-400">
+                                No collection data available
+                            </div>
+                        )}
                     </div>
                 </Card>
                 <Card className="p-6 rounded-none shadow-none border-none">
@@ -142,52 +279,70 @@ export default function AnalyticsReports() {
                         <div className="text-lg font-semibold text-[#4C406E]">Recent orders</div>
                         <div className="text-xs text-gray-500">Latest customer purchases</div>
                     </div>
-                    <ul className="space-y-4">
-                        {[1, 2, 3].map(i => (
-                            <li key={i} className="flex items-center justify-between">
-                                <div>
-                                    <div className="text-sm font-medium text-[#4C406E]">#2534</div>
-                                    <div className="text-xs text-gray-500">Adam Lukat</div>
-                                </div>
-                                <div className="text-right">
-                                    <div className="text-sm font-semibold">$537</div>
-                                    <div className="text-xs text-gray-400">2hr ago</div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                    {data?.recentOrders && data.recentOrders.length > 0 ? (
+                        <ul className="space-y-4">
+                            {data.recentOrders.map(order => (
+                                <li key={order._id} className="flex items-center justify-between">
+                                    <div>
+                                        <div className="text-sm font-medium text-[#4C406E]">
+                                            #{order.orderNumber}
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            {order.user.firstName} {order.user.lastName}
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-sm font-semibold">
+                                            {formatCurrency(order.totalAmount)}
+                                        </div>
+                                        <div className="text-xs text-gray-400">
+                                            {formatDate(order.createdAt)}
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="flex items-center justify-center h-32 text-gray-400">
+                            No recent orders
+                        </div>
+                    )}
                 </Card>
                 <Card className="p-6 rounded-none shadow-none border-none">
                     <div className="mb-2">
-                        <div className="text-lg font-semibold text-[#4C406E]">Sales by Collection</div>
-                        <div className="text-xs text-gray-500">Performance by product line</div>
+                        <div className="text-lg font-semibold text-[#4C406E]">Top Products</div>
+                        <div className="text-xs text-gray-500">Best selling items</div>
                     </div>
-                    <div className="w-full h-72 flex items-end gap-2">
-                        {/* SVG bar chart mockup - improved to match provided mockup */}
-                        <svg viewBox="0 0 500 300" className="w-full h-full">
-                            <rect x="0" y="0" width="500" height="300" fill="#fff" />
-                            {/* grid lines */}
-                            {[0, 1, 2, 3, 4].map(i => (
-                                <line key={i} x1={50} x2={470} y1={50 + i * 50} y2={50 + i * 50} stroke="#d9d9d9" strokeDasharray="4 2" />
+                    {data?.topProducts && data.topProducts.length > 0 ? (
+                        <ul className="space-y-4">
+                            {data.topProducts.map((product, index) => (
+                                <li key={product._id} className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-[#4C406E] font-semibold text-sm">
+                                            #{index + 1}
+                                        </div>
+                                        <div>
+                                            <div className="text-sm font-medium text-[#4C406E]">
+                                                {product.productDetails.name}
+                                            </div>
+                                            <div className="text-xs text-gray-500">
+                                                {product.totalQuantity} sold
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-sm font-semibold">
+                                            {formatCurrency(product.totalRevenue)}
+                                        </div>
+                                    </div>
+                                </li>
                             ))}
-                            {/* y-axis */}
-                            <line x1={50} x2={50} y1={50} y2={250} stroke="#888" />
-                            {/* x-axis */}
-                            <line x1={50} x2={470} y1={250} y2={250} stroke="#888" />
-                            {/* bars */}
-                            {[120, 90, 180, 80, 80].map((h, i) => (
-                                <rect key={i} x={90 + i * 75} y={250 - h} width={50} height={h} fill="#4C406E" rx={4} />
-                            ))}
-                            {/* y-axis labels */}
-                            {[400, 300, 200, 100, 0].map((v, i) => (
-                                <text key={v} x={35} y={55 + i * 50} fontSize="13" fill="#4C406E" textAnchor="end">{v}</text>
-                            ))}
-                            {/* x-axis labels, rotated */}
-                            {['Noir Collection', 'Noir Collection', 'Noir Collection', 'Noir Collection', 'Noir Collection'].map((c, i) => (
-                                <text key={c + i} x={115 + i * 75} y={270} fontSize="13" fill="#4C406E" textAnchor="end" transform={`rotate(-30,${115 + i * 75},270)`}>{c}</text>
-                            ))}
-                        </svg>
-                    </div>
+                        </ul>
+                    ) : (
+                        <div className="flex items-center justify-center h-32 text-gray-400">
+                            No product data available
+                        </div>
+                    )}
                 </Card>
             </div>
         </div>

@@ -14,7 +14,7 @@ const MostBelovedFragrancesHeader = () => (
       <h2 className="text-3xl md:text-4xl font-light tracking-[0.3em] text-purple-900 mb-4 uppercase">
         Most Beloved Fragrances
       </h2>
-      <p className="text-base md:text-lg text-gray-700 font-light">
+      <p className="text-base md:text-lg text-gray-700 font-light font-circular">
         Each collection tells a unique olfactory story, crafted  with the finest ingredients and inspired by moments of pure beauty and emotion.
       </p>
     </div>
