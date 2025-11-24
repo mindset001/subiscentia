@@ -20,7 +20,10 @@ import uploadRoutes from './routes/upload.routes';
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://subiscentia.vercel.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
