@@ -19,7 +19,23 @@ import uploadRoutes from './routes/upload.routes';
 
 const app = express();
 
-// CORS Configuration
+/* -------------------------------------------------------------------
+   🔥 GLOBAL CORS FIX — Ensures OPTIONS requests always succeed
+-------------------------------------------------------------------- */
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+  res.header("Access-Control-Allow-Origin", "https://subiscentia.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // Important for preflight
+  }
+
+  next();
+});
+
+// Additional CORS Configuration
 const corsOptions = {
   origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     const allowedOrigins = [
@@ -27,8 +43,8 @@ const corsOptions = {
       'http://localhost:3000',
       'http://localhost:3001'
     ];
-    
-    // Allow requests with no origin (like mobile apps or curl requests)
+
+    // Allow requests with no origin (mobile apps, curl, etc.)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -39,13 +55,11 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   exposedHeaders: ['Content-Range', 'X-Content-Range'],
-  maxAge: 86400 // 24 hours
+  maxAge: 86400
 };
 
 app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -71,8 +85,8 @@ app.use('/api/upload', uploadRoutes);
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
-  res.status(500).json({ 
-    success: false, 
+  res.status(500).json({
+    success: false,
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
